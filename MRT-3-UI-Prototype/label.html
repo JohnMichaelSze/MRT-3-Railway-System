@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0A0C0E" />
+    <meta name="description" content="An independent record label for sounds that stay with you." />
+    <title>LOWFORM — Independent Sound</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/site.css" />
+    <link rel="stylesheet" href="assets/css/label.css" />
+  </head>
+  <body id="top">
+    <header class="header site-header">
+  <a class="logo" href="index.html">MRT-3 Express</a>
+  <div class="nav-container">
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a><a href="stations.html">View MRT Stations</a><a href="map.html">Line Map</a><a href="booking.html">Fares &amp; Ticketing</a><a href="account.html">Account Details</a>
+    </nav>
+    <button id="signOutButton" class="header-signout" type="button" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 17l5-5-5-5M15 12H3m9-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Sign out</span></button>
+    <div class="system-status"><i aria-hidden="true"></i><span id="liveClock">UI DEMO · MRT-3</span></div>
+  </div>
+</header>
+    <header class="site-nav">
+      <a class="wordmark" href="#top" aria-label="Lowform home">LOWFORM<span>.</span></a>
+      <nav aria-label="Main navigation">
+        <a href="#releases">Releases</a><a href="#roster">Roster</a><a href="#dates">Dates</a>
+      </nav>
+      <a class="nav-pill" href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main id="top">
+      <section class="portal" aria-label="Lowform record label">
+        <div class="portal-sticky">
+          <div class="portal-image" aria-hidden="true"></div>
+          <div class="duotone" aria-hidden="true"></div>
+          <div class="edge-veil" aria-hidden="true"></div>
+          <div class="door door-left" aria-hidden="true"></div><div class="door door-right" aria-hidden="true"></div>
+          <span class="portal-dot dot-left" aria-hidden="true"></span><span class="portal-dot dot-right" aria-hidden="true"></span>
+          <h1 class="portal-title" aria-label="Lowform"><span>LOW</span><span>FORM</span><i>.</i></h1>
+          <span class="portal-meta meta-top">INDEPENDENT SOUND · EST. 2018</span>
+          <span class="portal-meta meta-bottom">A LABEL FOR THE IN-BETWEEN</span>
+          <a class="scroll-cue" href="#statement">SCROLL TO ENTER <span aria-hidden="true">↓</span></a>
+        </div>
+      </section>
+
+      <section class="statement section-pad" id="statement">
+        <span class="outline-index" aria-hidden="true">01</span>
+        <div class="statement-copy reveal">
+          <p class="eyebrow">A PLACE FOR SOUND TO BECOME</p>
+          <h2>We make room for music that <em>moves at its own pace.</em></h2>
+          <p class="statement-note">Lowform is an independent home for left-field electronic music, patient songwriting, and the people who make it.</p>
+        </div>
+        <div class="orbit-image" aria-hidden="true"></div>
+        <span class="side-note">LISTEN CLOSELY / STAY AWHILE</span>
+      </section>
+
+      <section class="releases section-pad" id="releases">
+        <div class="release-intro reveal">
+          <p class="eyebrow">02 / SELECTED CATALOGUE</p>
+          <h2>Made to be<br />heard <em>whole.</em></h2>
+          <p>Records from our shelves, made with care and meant to travel with you.</p>
+          <div class="action-row"><a class="text-button" href="#catalogue">Explore the catalogue <span>↗</span></a><a class="quiet-button" href="#contact">Submit music</a></div>
+        </div>
+        <div class="deck-wrap">
+          <p class="deck-hint">DRAG A SLEEVE OR USE ← →</p>
+          <div class="record-deck" id="recordDeck" tabindex="0" role="region" aria-label="Interactive release catalogue. Use left and right arrow keys to browse.">
+            <article class="record-card card-one" data-index="0" aria-label="Release sleeve placeholder one">
+              <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1000&q=85" alt="Amber-lit concert crowd" draggable="false" />
+              <div class="sleeve-caption"><span>CATALOGUE NO. — · FORMAT —</span><strong>Release title</strong><small>Artist name</small></div>
+            </article>
+            <article class="record-card card-two" data-index="1" aria-label="Release sleeve placeholder two">
+              <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1000&q=85" alt="Deep blue night sky" draggable="false" />
+              <div class="sleeve-caption"><span>CATALOGUE NO. — · FORMAT —</span><strong>Release title</strong><small>Artist name</small></div>
+            </article>
+            <article class="record-card card-three" data-index="2" aria-label="Release sleeve placeholder three">
+              <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1000&q=85" alt="Quiet landscape at dusk" draggable="false" />
+              <div class="sleeve-caption"><span>CATALOGUE NO. — · FORMAT —</span><strong>Release title</strong><small>Artist name</small></div>
+            </article>
+          </div>
+          <div class="deck-progress" aria-label="Catalogue position"><span class="progress-dot active"></span><span class="progress-dot"></span><span class="progress-dot"></span><span class="progress-label">01 / 03</span></div>
+        </div>
+      </section>
+
+      <section class="catalogue section-pad" id="catalogue">
+        <div class="section-heading reveal"><p class="eyebrow">THE SHELVES</p><h2>Recent releases<span>.</span></h2></div>
+        <div class="catalogue-list">
+          <article><span class="catalogue-type">CATALOGUE NO. — <i>FORMAT —</i></span><h3>Release title</h3><span class="catalogue-meta">Artist name · Release year</span><span class="track-count">TRACKS —</span></article>
+          <article><span class="catalogue-type">CATALOGUE NO. — <i>FORMAT —</i></span><h3>Release title</h3><span class="catalogue-meta">Artist name · Release year</span><span class="track-count">TRACKS —</span></article>
+          <article><span class="catalogue-type">CATALOGUE NO. — <i>FORMAT —</i></span><h3>Release title</h3><span class="catalogue-meta">Artist name · Release year</span><span class="track-count">TRACKS —</span></article>
+        </div>
+        <p class="content-note">Catalogue and schedule entries shown are editorial demo content. Replace them with confirmed label releases and dates before publishing.</p>
+      </section>
+
+      <section class="roster section-pad" id="roster">
+        <div class="section-heading reveal"><p class="eyebrow">03 / THE PEOPLE</p><h2>Our roster<span>.</span></h2></div>
+        <div class="roster-list">
+          <a href="#contact"><span class="roster-tag">GENRE / ROLE</span><strong>Artist name</strong><span class="roster-count">RELEASES — <b>↗</b></span></a>
+          <a href="#contact"><span class="roster-tag">GENRE / ROLE</span><strong>Artist name</strong><span class="roster-count">RELEASES — <b>↗</b></span></a>
+          <a href="#contact"><span class="roster-tag">GENRE / ROLE</span><strong>Artist name</strong><span class="roster-count">RELEASES — <b>↗</b></span></a>
+        </div>
+      </section>
+
+      <section class="dates section-pad" id="dates">
+        <div class="section-heading reveal"><p class="eyebrow">04 / OUT IN THE WORLD</p><h2>Upcoming dates<span>.</span></h2></div>
+        <div class="dates-table" role="table" aria-label="Upcoming artist dates">
+          <div class="date-row date-head" role="row"><span role="columnheader">DATE</span><span role="columnheader">ARTIST / EVENT</span><span role="columnheader">VENUE</span><span role="columnheader">CITY</span></div>
+          <div class="date-row" role="row"><span class="date-value" role="cell">DATE TBC</span><strong role="cell">Artist name <small>EVENT</small></strong><span role="cell">Venue</span><span role="cell">City</span></div>
+          <div class="date-row" role="row"><span class="date-value" role="cell">DATE TBC</span><strong role="cell">Artist name <small>EVENT</small></strong><span role="cell">Venue</span><span role="cell">City</span></div>
+          <div class="date-row" role="row"><span class="date-value" role="cell">DATE TBC</span><strong role="cell">Artist name <small>EVENT</small></strong><span role="cell">Venue</span><span role="cell">City</span></div>
+        </div>
+        <p class="content-note">Replace placeholders with confirmed event listings before publishing.</p>
+      </section>
+
+      <footer class="close-section section-pad" id="contact">
+        <div class="close-top"><div><p class="eyebrow">KEEP THE CHANNEL OPEN</p><h2>Something on<br />your mind<span>?</span></h2><p class="footer-fine">Demo contact links — connect these to the label’s official channels.</p></div><div class="close-actions"><a class="text-button" href="mailto:hello@example.com">Write to us <span>↗</span></a><a class="quiet-button" href="#releases">Back to the music ↑</a></div></div>
+        <div class="footer-strip"><span>© LOWFORM RECORDS</span><span>INDEPENDENT SOUND · EST. 2018</span><a href="#top">BACK TO TOP ↑</a></div>
+        <div class="footer-wordmark" aria-hidden="true">LOWFORM<span>.</span></div>
+      </footer>
+    </main>
+    <footer class="portal-footer" aria-label="MRT-3 Express footer"><span>© 2026 MRT-3 EXPRESS · UI PROTOTYPE</span><a href="stations.html">13 STATIONS · NORTH TO SOUTH</a><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">BACK TO TOP ↑</a></footer>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
+
+

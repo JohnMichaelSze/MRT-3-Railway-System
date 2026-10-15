@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="assets/css/site.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MRT-3 Route &amp; Train Map</title>
+
+    <!-- Shared Site Stylesheet -->
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+  </head>
+  <body id="top">
+    <!-- NAVBAR -->
+    <header class="header site-header">
+  <a class="logo" href="index.html">MRT-3 Express</a>
+  <div class="nav-container">
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a><a href="stations.html">View MRT Stations</a><a href="map.html">Line Map</a><a href="booking.html">Fares &amp; Ticketing</a><a href="account.html">Account Details</a>
+    </nav>
+    <button id="signOutButton" class="header-signout" type="button" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 17l5-5-5-5M15 12H3m9-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Sign out</span></button>
+    <div class="system-status"><i aria-hidden="true"></i><span id="liveClock">UI DEMO · MRT-3</span></div>
+  </div>
+</header>
+
+    <main class="map-wrapper">
+      <div class="map-header">
+        <div>
+          <h1 class="map-title">MRT-3 Route &amp; Train Map</h1>
+          <p class="map-subtitle">
+            Explore all 13 EDSA stations. Train positions are simulated for this
+            demo.
+          </p>
+        </div>
+        <div class="status-badge">
+          <span class="status-dot"></span> Train positions simulated
+        </div>
+      </div>
+
+      <div class="map-toolbar" aria-label="Map controls">
+        <label class="station-jump" for="stationSelect"
+          ><span>FIND A STATION</span
+          ><select id="stationSelect">
+            <option value="">Choose a station</option>
+          </select></label
+        >
+        <button id="goToStation" class="map-action" type="button" disabled>
+          Show station
+        </button>
+        <span class="toolbar-divider" aria-hidden="true"></span>
+        <button
+          id="zoomIn"
+          class="map-action zoom-action"
+          type="button"
+          aria-label="Zoom in"
+        >
+          ＋
+        </button>
+        <button
+          id="zoomOut"
+          class="map-action zoom-action"
+          type="button"
+          aria-label="Zoom out"
+        >
+          −
+        </button>
+        <button id="fitRoute" class="map-action" type="button">
+          Fit full line
+        </button>
+        <span class="map-gesture-hint"
+          >Scroll to zoom · drag to pan · select a station for details</span
+        >
+      </div>
+
+      <!-- LEAFLET MAP CANVAS -->
+      <div class="map-container" aria-label="Interactive map of the MRT-3 line">
+        <div id="map"></div>
+      </div>
+      <div class="map-legend">
+        <span><i class="legend-line"></i>MRT-3 route</span
+        ><span><i class="legend-station"></i>Station</span
+        ><span><i class="legend-train"></i>Simulated train</span>
+      </div>
+    </main>
+
+    <!-- Leaflet JS Library & Map Logic ONLY -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+      <footer class="portal-footer" aria-label="MRT-3 Express footer"><span>© 2026 MRT-3 EXPRESS · UI PROTOTYPE</span><a href="stations.html">13 STATIONS · NORTH TO SOUTH</a><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">BACK TO TOP ↑</a></footer>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
+
+
+
+

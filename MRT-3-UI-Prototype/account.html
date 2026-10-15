@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="assets/css/site.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0e17" />
+    <title>Account Details - MRT-3 Express</title>
+  </head>
+  <body id="top">
+    <header class="header site-header">
+  <a class="logo" href="index.html">MRT-3 Express</a>
+  <div class="nav-container">
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a><a href="stations.html">View MRT Stations</a><a href="map.html">Line Map</a><a href="booking.html">Fares &amp; Ticketing</a><a href="account.html">Account Details</a>
+    </nav>
+    <button id="signOutButton" class="header-signout" type="button" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 17l5-5-5-5M15 12H3m9-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Sign out</span></button>
+    <div class="system-status"><i aria-hidden="true"></i><span id="liveClock">UI DEMO · MRT-3</span></div>
+  </div>
+</header>
+
+    <main class="account-page">
+      <section class="account-card" aria-labelledby="pageTitle">
+        <a class="back-link" href="index.html">← Back to home</a>
+        <div class="account-heading">
+          <span class="account-kicker">YOUR MRT-3 ACCOUNT</span>
+          <h1 id="pageTitle">Travel starts here.</h1>
+          <p>Sign in to manage your passes, or create an account to get started.</p>
+        </div>
+        <div class="account-tabs" role="tablist" aria-label="Account access">
+          <button id="loginTab" class="account-tab" type="button" role="tab" aria-selected="false" aria-controls="loginPanel">Sign in</button>
+          <button id="registerTab" class="account-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="registerPanel">Create account</button>
+        </div>
+
+        <form id="loginPanel" class="account-form" role="tabpanel" aria-labelledby="loginTab" hidden novalidate>
+          <div class="form-field">
+            <label for="loginEmail">Email address</label>
+            <input id="loginEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-field">
+            <label for="loginPassword">Password</label>
+            <input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required />
+          </div>
+          <p id="loginMessage" class="form-message" aria-live="polite"></p>
+          <button class="account-submit" type="submit">Sign in</button>
+          <p class="demo-note">Your sign-in is handled by this local MRT app.</p>
+        </form>
+
+        <form id="registerPanel" class="account-form" role="tabpanel" aria-labelledby="registerTab" novalidate>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="firstName">First name</label>
+              <input id="firstName" name="firstName" autocomplete="given-name" placeholder="e.g. Maria" required />
+              <span class="field-error" id="firstNameError"></span>
+            </div>
+            <div class="form-field">
+              <label for="lastName">Last name</label>
+              <input id="lastName" name="lastName" autocomplete="family-name" placeholder="e.g. Santos" required />
+              <span class="field-error" id="lastNameError"></span>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="middleName">Middle name / initial <span class="optional-label">(optional)</span></label>
+            <input id="middleName" name="middleName" autocomplete="additional-name" placeholder="e.g. Reyes or R." />
+          </div>
+          <div class="form-field">
+            <label for="registerEmail">Email address</label>
+            <input id="registerEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+            <span class="field-error" id="emailError"></span>
+          </div>
+          <div class="form-field">
+            <label for="registerPassword">Password</label>
+            <div class="password-control">
+              <input id="registerPassword" name="password" type="password" autocomplete="new-password" minlength="10" maxlength="128" placeholder="Create your own password" aria-describedby="passwordHint passwordError" required />
+              <button id="togglePasswordVisibility" class="password-visibility" type="button" aria-label="Show password" aria-pressed="false">Show</button>
+            </div>
+            <span id="passwordHint" class="field-hint">Use at least 10 characters. Opera’s generated password suggestion is optional; you can type your own.</span>
+            <span class="field-error" id="passwordError"></span>
+          </div>
+          <div class="form-field">
+            <label for="phone">Phone number</label>
+            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09XX XXX XXXX" required />
+            <span class="field-hint">Enter a Philippine mobile number, for example 09171234567.</span>
+            <span class="field-error" id="phoneError"></span>
+          </div>
+          <div class="form-field">
+            <label for="address">Residential address</label>
+            <textarea id="address" name="address" autocomplete="street-address" rows="2" placeholder="House / unit, street, barangay, city" required></textarea>
+            <span class="field-error" id="addressError"></span>
+          </div>
+          <fieldset class="form-field account-type-field">
+            <legend>Passenger type</legend>
+            <label for="accountType" class="visually-hidden">Select passenger type</label>
+            <select id="accountType" name="accountType">
+              <option value="regular">Regular</option>
+              <option value="student">Student</option>
+              <option value="senior">Senior Citizen</option>
+              <option value="pwd">PWD (Person with Disability)</option>
+            </select>
+            <span class="field-hint">Concessionary accounts are subject to ID verification.</span>
+          </fieldset>
+          <div id="idUploadSection" class="upload-panel" hidden>
+            <label class="upload-title" for="concessionId">Upload your <span id="idTypeLabel">concessionary</span> ID</label>
+            <p class="field-hint">Choose an image or PDF (up to 5 MB). The file stays in your browser; only a pending-verification status is saved.</p>
+            <input id="concessionId" name="concessionId" type="file" accept="image/*,.pdf,application/pdf" aria-describedby="uploadHint idFileError" />
+            <span id="uploadHint" class="field-hint">Accepted: JPG, PNG, WEBP or PDF.</span>
+            <span id="idFileError" class="field-error"></span>
+            <div id="filePreview" class="file-preview" hidden aria-live="polite">
+              <img id="previewImage" alt="Preview of uploaded concessionary ID" hidden />
+              <span id="previewIcon" class="file-icon" aria-hidden="true">PDF</span>
+              <span id="fileName" class="file-name"></span>
+              <button id="removeFile" class="remove-file" type="button" aria-label="Remove selected ID file">Remove</button>
+            </div>
+          </div>
+          <p id="registerMessage" class="form-message" role="alert" aria-live="polite"></p>
+          <button class="account-submit" type="submit">Register / Submit</button>
+          <p class="privacy-note">Prototype only: demo account data is stored in this browser. Do not enter real passwords or sensitive ID details.</p>
+        </form>
+      </section>
+      <section id="accountDashboard" class="account-dashboard" aria-labelledby="dashboardTitle" hidden>
+        <header class="dashboard-heading">
+          <span class="account-kicker">COMMUTER PROFILE</span>
+          <h1 id="dashboardTitle" tabindex="-1">Account details</h1>
+          <p>Manage your profile, check your demo wallet, and review your digital passes.</p>
+          <div class="account-wallet-balance"><span>DEMO WALLET BALANCE</span><strong id="accountWalletBalance">Sign in to view</strong></div>
+        </header>
+        <div class="dashboard-grid">
+          <section class="dashboard-panel profile-panel" aria-labelledby="profileTitle">
+            <div class="panel-heading">
+              <div><span class="dashboard-eyebrow">PERSONAL DETAILS</span><h2 id="profileTitle">Your profile</h2></div>
+              <span id="accountIdBadge" class="account-id-badge">ID </span>
+            </div>
+            <form id="profileForm" class="profile-form" novalidate>
+              <div class="form-grid">
+                <div class="form-field"><label for="profileFirstName">First name</label><input id="profileFirstName" name="first_name" autocomplete="given-name" value="" required /></div>
+                <div class="form-field"><label for="profileLastName">Last name</label><input id="profileLastName" name="last_name" autocomplete="family-name" value="" required /></div>
+              </div>
+              <div class="form-field"><label for="profileMiddleName">Middle name / initial <span class="optional-label">(optional)</span></label><input id="profileMiddleName" name="middle_name" autocomplete="additional-name" value="" /></div>
+              <div class="form-field"><label for="profileEmail">Email address</label><input id="profileEmail" type="email" autocomplete="email" value="" readonly aria-readonly="true" /><span class="field-hint">Email is used to sign in and can’t be changed here.</span></div>
+              <div class="form-field"><label for="profilePhone">Phone number</label><input id="profilePhone" name="phone_number" type="tel" autocomplete="tel" value="" required /></div>
+              <div class="form-field"><label for="profileAddress">Residential address</label><textarea id="profileAddress" name="address" rows="3" autocomplete="street-address" required></textarea></div>
+              <fieldset class="form-field profile-emergency">
+                <legend>Emergency contact <span class="optional-label">(optional)</span></legend>
+                <div class="form-grid">
+                  <div class="form-field"><label for="emergencyName">Contact name <span class="optional-label">(optional)</span></label><input id="emergencyName" name="emergency_name" autocomplete="off" maxlength="100" value="" placeholder="e.g. Ana Santos" /></div>
+                  <div class="form-field"><label for="emergencyPhone">Contact number <span class="optional-label">(optional)</span></label><input id="emergencyPhone" name="emergency_phone" type="tel" autocomplete="tel" value="" placeholder="09XX XXX XXXX" /></div>
+                </div>
+                <span class="field-hint">For safety, add someone we can contact in an emergency.</span>
+              </fieldset>
+              <p id="profileMessage" class="form-message" aria-live="polite"></p>
+              <button class="account-submit" type="submit">Save profile</button>
+            </form>
+          </section>
+          <section class="dashboard-panel verification-panel" aria-labelledby="verificationTitle">
+            <span class="dashboard-eyebrow">CONCESSIONARY ACCOUNT</span>
+            <h2 id="verificationTitle">Fare eligibility</h2>
+            <div class="verification-summary">
+              <span id="accountTypeBadge" class="tier-badge"></span>
+              <span id="verificationBadge" class="verification-badge verification-"></span>
+            </div>
+            <p id="verificationCopy">This demo profile uses the regular fare tier; no concessionary ID is required.</p>
+            <form id="idVerificationForm" class="id-verification-form" novalidate>
+              <div class="form-field"><label for="concessionAccountType">Fare account type</label><select id="concessionAccountType" name="account_type"><option value="Regular">Regular</option><option value="Student">Student</option><option value="Senior">Senior Citizen</option><option value="PWD">PWD</option></select></div>
+              <div class="form-field"><label for="idType">Valid ID type <span id="idTypeRequired" class="optional-label"></span></label><select id="idType" name="id_type" aria-describedby="idTypeHint"><option value="">Select your ID</option><option>PhilSys National ID</option><option>Driver&apos;s License</option><option>UMID (Unified Multi-Purpose ID)</option><option>Philippine Passport</option><option>Postal ID</option><option>Student ID</option><option>Senior Citizen ID</option><option>PWD ID</option><option>Other Government-Issued ID</option></select><span class="field-hint" id="idTypeHint">Choose the ID that matches your fare account type.</span></div>
+              <div id="concessionIdFields" class="id-upload-fields" >
+                <div class="form-grid">
+                  <div class="form-field"><label for="idFront">Front image of ID</label><input id="idFront" name="id_front" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="idUploadHint" /><span class="file-selected" id="idFrontName"></span></div>
+                  <div class="form-field"><label for="idBack">Back image of ID</label><input id="idBack" name="id_back" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="idUploadHint" /><span class="file-selected" id="idBackName"></span></div>
+                </div>
+                <span class="field-hint" id="idUploadHint">For concessionary fares, upload both sides as JPG, PNG, or WEBP images, up to 5 MB each. A Regular account can skip the upload.</span>
+              </div>
+              <p id="idVerificationMessage" class="form-message" role="status" aria-live="polite"></p>
+              <button class="account-submit" type="submit">Save fare eligibility</button>
+            </form>
+            <p class="verification-note">This prototype does not upload ID images; only the selected file names are shown in this browser.</p>
+          </section>
+        </div>
+        <section class="dashboard-panel history-panel" aria-labelledby="historyTitle">
+          <div class="panel-heading"><div><span class="dashboard-eyebrow">DIGITAL TICKETS</span><h2 id="historyTitle">Your passes &amp; wallet activity</h2><p class="history-subtitle">Review your digital passes and booking history.</p></div><div class="history-controls"><div class="history-tabs" role="tablist" aria-label="Filter digital passes"><button id="activePassesTab" class="history-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="reservationHistory" tabindex="0" data-history-tab="ACTIVE">Active <span id="activePassCount">0</span></button><button id="cancelledPassesTab" class="history-tab" type="button" role="tab" aria-selected="false" aria-controls="reservationHistory" tabindex="-1" data-history-tab="CANCELLED">Cancelled <span id="cancelledPassCount">0</span></button></div><button id="refreshHistory" class="dashboard-refresh" type="button"><span aria-hidden="true">↻</span> Refresh</button></div></div>
+          <p id="historyMessage" class="history-message" aria-live="polite"></p>
+          <div id="reservationHistory" class="reservation-history" role="tabpanel" aria-labelledby="activePassesTab" aria-live="polite"><p class="history-empty">No active passes found.</p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div id="successDialog" class="dialog-backdrop" hidden>
+      <section class="success-dialog" role="dialog" aria-modal="true" aria-labelledby="successTitle" aria-describedby="successText">
+        <span class="success-icon" aria-hidden="true">✓</span>
+        <span class="account-kicker">ACCOUNT CREATED</span>
+        <h2 id="successTitle">You’re ready to ride.</h2>
+        <p id="successText">Registration successful! Your ID is pending verification. You can now book regular passes or wait for discount approval.</p>
+        <button id="successClose" class="account-submit" type="button">Continue</button>
+      </section>
+    </div>
+    <div id="ticketDetailsDialog" class="ticket-dialog-backdrop" hidden>
+      <section class="ticket-dialog" role="dialog" aria-modal="true" aria-labelledby="ticketModalTitle">
+        <button id="ticketModalClose" class="dialog-close" type="button" aria-label="Close ticket details">×</button>
+        <span class="dashboard-eyebrow">DIGITAL PASS</span><h2 id="ticketModalTitle">MRT-3 Digital Pass Summary</h2><code id="ticketModalReference" class="ticket-modal-reference"></code>
+        <div class="ticket-dialog-layout">
+          <div id="ticketModalQr" class="ticket-qr-code" role="img" aria-label="Ticket QR code"></div>
+          <p class="ticket-qr-copy">QR representation <code id="ticketModalQrText"></code></p>
+        </div>
+        <dl class="ticket-modal-details">
+          <div><dt id="ticketModalRouteLabel">Route</dt><dd id="ticketModalRoute"></dd></div><div><dt>Fare category / pass type</dt><dd id="ticketModalType"></dd></div>
+          <div><dt>Pass count</dt><dd id="ticketModalQuantity"></dd></div>
+          <div><dt id="ticketModalDateLabel">Valid date</dt><dd id="ticketModalValidity"></dd></div><div><dt>Amount / value</dt><dd id="ticketModalAmount"></dd></div>
+          <div><dt>Payment</dt><dd id="ticketModalPayment"></dd></div><div><dt>Booked</dt><dd id="ticketModalTimestamp"></dd></div><div><dt>Status</dt><dd id="ticketModalStatus" class="ticket-status-value"></dd></div>
+        </dl>
+        <p id="ticketModalInstructions" class="pass-instructions"></p>
+        <p class="ticket-demo-note">Demo QR code for this prototype. It contains this ticket’s journey details and is not valid for travel.</p>
+        <div class="ticket-dialog-actions"><button id="ticketModalDownload" class="ticket-action ticket-action-primary" type="button">Download PNG pass</button><button id="ticketModalCancel" class="ticket-action ticket-action-danger" type="button">Cancel booking</button><button id="ticketModalFooterClose" class="ticket-action" type="button">Close</button></div>
+      </section>
+    </div>
+    <div id="cancelTicketDialog" class="ticket-dialog-backdrop" hidden>
+      <section class="ticket-dialog ticket-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="cancelTicketTitle" aria-describedby="cancelTicketCopy">
+        <button id="cancelTicketClose" class="dialog-close" type="button" aria-label="Close cancellation confirmation">×</button>
+        <span class="dashboard-eyebrow">CANCEL BOOKING</span><h2 id="cancelTicketTitle">Cancel this ticket?</h2>
+        <p id="cancelTicketCopy">Are you sure you want to cancel this booking?</p>
+        <div class="ticket-dialog-actions"><button id="cancelTicketKeep" class="ticket-action" type="button">Keep booking</button><button id="cancelTicketConfirm" class="ticket-action ticket-action-primary" type="button">Cancel booking &amp; refund</button></div>
+      </section>
+    </div>
+    <div id="accountToast" class="account-toast" role="status" aria-live="polite" hidden></div>
+    <footer class="portal-footer" aria-label="MRT-3 Express footer"><span>© 2026 MRT-3 EXPRESS · UI PROTOTYPE</span><a href="stations.html">13 STATIONS · NORTH TO SOUTH</a><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">BACK TO TOP ↑</a></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="assets/js/ticket-modal.js"></script><script src="assets/js/app.js"></script>
+  </body>
+</html>
+
+
+
+

@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="assets/css/site.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MRT-3 Express - Rapid Railway Transit System</title>
+  </head>
+  <body id="top">
+    <!-- NAVBAR -->
+    <header class="header site-header">
+  <a class="logo" href="index.html">MRT-3 Express</a>
+  <div class="nav-container">
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a><a href="stations.html">View MRT Stations</a><a href="map.html">Line Map</a><a href="booking.html">Fares &amp; Ticketing</a><a href="account.html">Account Details</a>
+    </nav>
+    <button id="signOutButton" class="header-signout" type="button" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 17l5-5-5-5M15 12H3m9-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Sign out</span></button>
+    <div class="system-status"><i aria-hidden="true"></i><span id="liveClock">UI DEMO · MRT-3</span></div>
+  </div>
+</header>
+
+    <main class="main-container">
+      <!-- HERO SECTION WITH QUICK FARE ESTIMATOR -->
+      <section
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+          gap: 32px;
+          align-items: center;
+        "
+      >
+        <div>
+          <div
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+              background: rgba(255, 255, 255, 0.08);
+              border: 1px solid var(--border);
+              padding: 6px 14px;
+              border-radius: 99px;
+              margin-bottom: 24px;
+            "
+          >
+            <span
+              style="
+                display: inline-block;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background-color: var(--accent-gold);
+              "
+            ></span>
+            <span
+              style="
+                font-size: 0.75rem;
+                font-weight: 700;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+              "
+              >Next-Gen Commuter System</span
+            >
+          </div>
+
+          <h1
+            style="
+              font-size: 3rem;
+              font-weight: 800;
+              line-height: 1.1;
+              letter-spacing: -0.03em;
+              margin-bottom: 20px;
+              color: var(--text-primary);
+            "
+          >
+            Rapid Railway <br />
+            <span style="color: var(--accent-gold)">Transit System</span>
+          </h1>
+
+          <p
+            style="
+              font-size: 1rem;
+              line-height: 1.6;
+              margin-bottom: 32px;
+              color: var(--text-muted);
+              max-width: 520px;
+            "
+          >
+            Real-time train telemetry, station node mapping, dynamic fare
+            estimation, and scannable digital pass reservation.
+          </p>
+
+          <div
+            style="
+              display: flex;
+              gap: 14px;
+              align-items: center;
+              flex-wrap: wrap;
+            "
+          >
+            <a
+              href="booking.html"
+              class="btn-primary"
+              style="
+                padding: 16px 32px;
+                text-decoration: none;
+                border-radius: 99px;
+                text-align: center;
+                font-weight: 700;
+              "
+              >Book Ticket/Reserve</a
+            >
+            <a
+              href="#mapSection"
+              style="
+                padding: 16px 28px;
+                text-decoration: none;
+                border-radius: 99px;
+                background: rgba(255, 255, 255, 0.08);
+                color: var(--text-primary);
+                font-weight: 700;
+                font-size: 0.95rem;
+                border: 1px solid var(--border);
+              "
+              >View Station Map</a
+            >
+          </div>
+        </div>
+
+        <!-- QUICK FARE ESTIMATOR CARD -->
+        <div class="card" style="padding: 28px; border-radius: 20px">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 18px;
+            "
+          >
+            <h2
+              style="
+                font-size: 1.2rem;
+                font-weight: 800;
+                color: var(--text-primary);
+              "
+            >
+              Quick Fare Estimator
+            </h2>
+            <span
+              style="
+                font-size: 0.75rem;
+                font-weight: 700;
+                color: var(--accent-gold);
+                cursor: pointer;
+              "
+              onclick="document.getElementById('schedules').scrollIntoView({behavior: 'smooth'})"
+              >Fare Matrix</span
+            >
+          </div>
+
+          <div style="margin-bottom: 18px">
+            <label
+              style="
+                font-size: 0.7rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                color: var(--text-muted);
+                letter-spacing: 0.05em;
+                display: block;
+                margin-bottom: 8px;
+              "
+            >
+              SELECT PASSENGER FARE TYPE
+            </label>
+            <table
+              style="
+                width: 100%;
+                border-collapse: collapse;
+                background: rgba(11, 14, 23, 0.6);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                overflow: hidden;
+              "
+            >
+              <thead>
+                <tr
+                  style="
+                    border-bottom: 1px solid var(--border);
+                    font-size: 0.7rem;
+                    text-transform: uppercase;
+                    color: var(--text-muted);
+                  "
+                >
+                  <th style="padding: 8px 12px; text-align: left">Select</th>
+                  <th style="padding: 8px 12px; text-align: left">
+                    Fare Category
+                  </th>
+                  <th style="padding: 8px 12px; text-align: right">
+                    Rate Range
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  id="regularFareRow"
+                  style="
+                    border-bottom: 1px solid var(--border);
+                    cursor: pointer;
+                  "
+                >
+                  <td style="padding: 10px 12px; width: 36px">
+                    <input
+                      type="radio"
+                      id="fareTypeRegular"
+                      name="passengerFareType"
+                      value="regular"
+                      checked
+                      style="accent-color: var(--accent-gold); cursor: pointer"
+                    />
+                  </td>
+                  <td style="padding: 10px 12px">
+                    <strong
+                      style="
+                        font-size: 0.85rem;
+                        color: var(--text-primary);
+                        display: block;
+                      "
+                      >Regular Fare</strong
+                    >
+                    <span style="font-size: 0.72rem; color: var(--text-muted)"
+                      >Standard commuter rate</span
+                    >
+                  </td>
+                  <td
+                    style="
+                      padding: 10px 12px;
+                      text-align: right;
+                      font-size: 0.85rem;
+                      font-weight: 700;
+                      color: var(--accent-gold);
+                    "
+                  >
+                    ₱13 - ₱28
+                  </td>
+                </tr>
+                <tr id="discountedFareRow" class="fare-row-unavailable" style="cursor: pointer" aria-disabled="true">
+                  <td style="padding: 10px 12px; width: 36px">
+                    <input
+                      type="radio"
+                      id="fareTypeDiscounted"
+                      name="passengerFareType"
+                      value="discounted"
+                      disabled
+                      style="accent-color: var(--accent-gold); cursor: pointer"
+                    />
+                  </td>
+                  <td style="padding: 10px 12px">
+                    <strong
+                      style="
+                        font-size: 0.85rem;
+                        color: var(--text-primary);
+                        display: block;
+                      "
+                      >50% Discounted Fare</strong
+                    >
+                    <span style="font-size: 0.72rem; color: var(--text-muted)"
+                      >Verified Student, Senior Citizen, or PWD accounts</span
+                    >
+                  </td>
+                  <td
+                    style="
+                      padding: 10px 12px;
+                      text-align: right;
+                      font-size: 0.85rem;
+                      font-weight: 700;
+                      color: var(--accent-green);
+                    "
+                  >
+                    ₱6 - ₱14
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p id="discountFareEligibilityNote" class="fare-eligibility-note" role="status" aria-live="polite">Discounted fare is available after concessionary ID verification is approved.</p>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 14px;
+              margin-bottom: 20px;
+            "
+          >
+            <div class="input-group">
+              <label for="quickFrom">ORIGIN</label>
+              <select id="quickFrom">
+                <option value="North Avenue">North Avenue</option>
+                <option value="Quezon Avenue">Quezon Avenue</option>
+                <option value="GMA-Kamuning">GMA-Kamuning</option>
+                <option value="Araneta Center-Cubao">
+                  Araneta Center-Cubao
+                </option>
+                <option value="Santolan-Anapolis">Santolan-Anapolis</option>
+                <option value="Ortigas">Ortigas</option>
+                <option value="Shaw Boulevard">Shaw Boulevard</option>
+                <option value="Boni">Boni</option>
+                <option value="Guadalupe">Guadalupe</option>
+                <option value="Buendia">Buendia</option>
+                <option value="Ayala">Ayala</option>
+                <option value="Magallanes">Magallanes</option>
+                <option value="Taft Avenue">Taft Avenue</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="quickTo">DESTINATION</label>
+              <select id="quickTo">
+                <option value="">Select a destination</option>
+                <option value="North Avenue">North Avenue</option>
+                <option value="Quezon Avenue">Quezon Avenue</option>
+                <option value="GMA-Kamuning">GMA-Kamuning</option>
+                <option value="Araneta Center-Cubao">
+                  Araneta Center-Cubao
+                </option>
+                <option value="Santolan-Anapolis">Santolan-Anapolis</option>
+                <option value="Ortigas">Ortigas</option>
+                <option value="Shaw Boulevard">Shaw Boulevard</option>
+                <option value="Boni">Boni</option>
+                <option value="Guadalupe">Guadalupe</option>
+                <option value="Buendia">Buendia</option>
+                <option value="Ayala">Ayala</option>
+                <option value="Magallanes">Magallanes</option>
+                <option value="Taft Avenue" selected>Taft Avenue</option>
+              </select>
+            </div>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: flex-end;
+            "
+          >
+            <div>
+              <span
+                style="
+                  display: block;
+                  font-size: 0.75rem;
+                  color: var(--text-muted);
+                  font-weight: 600;
+                  margin-bottom: 2px;
+                "
+                >Calculated Fare</span
+              >
+              <strong
+                id="quickFareDisplay"
+                style="
+                  font-size: 1.8rem;
+                  font-weight: 800;
+                  color: var(--text-primary);
+                "
+                >₱ 28.00</strong
+              >
+            </div>
+            <a
+              id="quickBookPass"
+              href="booking.html"
+              class="btn-primary"
+              style="
+                padding: 12px 24px;
+                width: auto;
+                display: inline-block;
+                text-decoration: none;
+                text-align: center;
+              "
+              >Book Pass</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- LIVE TRAIN TRACKER SECTION -->
+      <section id="trackerSection" class="card" style="padding: 28px">
+        <div style="margin-bottom: 20px">
+          <h3
+            style="
+              font-size: 1.2rem;
+              font-weight: 800;
+              color: var(--text-primary);
+              margin-bottom: 4px;
+            "
+          >
+            MRT-3 Predictive Train Tracker
+          </h3>
+          <p style="font-size: 0.82rem; color: var(--text-muted)">
+            Real-time interpolated movement of active fleet along the 13 station
+            nodes.
+          </p>
+        </div>
+
+        <!-- Dynamic Track Line -->
+        <div
+          style="
+            position: relative;
+            margin: 30px 10px 20px 10px;
+            background: rgba(255, 255, 255, 0.15);
+            height: 6px;
+            border-radius: 99px;
+          "
+        >
+          <div id="trainMarkersContainer">
+            <!-- Dynamic train markers populated via script.js -->
+          </div>
+        </div>
+
+        <!-- Active Trains List Container -->
+        <div
+          id="activeTrainList"
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-top: 24px;
+          "
+        >
+          <!-- Populated via script.js -->
+        </div>
+      </section>
+
+      <!-- INTERACTIVE LINE MAP SECTION -->
+      <section id="mapSection" class="card" style="padding: 28px">
+        <div style="margin-bottom: 24px">
+          <h3
+            style="
+              font-size: 1.1rem;
+              font-weight: 800;
+              color: var(--text-primary);
+              margin-bottom: 4px;
+            "
+          >
+            Interactive Line Map
+          </h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted)">
+            Click any two station nodes to set Origin and Destination
+          </p>
+        </div>
+
+        <div class="line-map-wrapper">
+          <div class="station-node-container" id="lineMapNodes">
+            <div
+              class="station-node"
+              data-station="North Avenue"
+              onclick="selectNodeStation('North Avenue')"
+            >
+              <div class="circle">1</div>
+              <span>North<br />Avenue</span>
+            </div>
+            <div
+              class="station-node"
+              data-station="Quezon Avenue"
+              onclick="selectNodeStation('Quezon Avenue')"
+            >
+              <div class="circle">2</div>
+              <span>Quezon<br />Avenue</span>
+            </div>
+            <div
+              class="station-node"
+              data-station="GMA-Kamuning"
+              onclick="selectNodeStation('GMA-Kamuning')"
+            >
+              <div class="circle">3</div>
+              <span>GMA-<br />Kamuning</span>
+            </div>
+            <div
+              class="station-node"
+              data-station="Araneta Center-Cubao"
+              onclick="selectNodeStation('Araneta Center-Cubao')"
+            >
+              <div class="circle">4</div>
+              <span>Araneta Ctr.<br />Cubao</span>
+            </div>
+            <div
+              class="station-node"
+              data-station="Santolan-Anapolis"
+              onclick="selectNodeStation('Santolan-Anapolis')"
+            >
+              <div class="circle">5</div>
+              <span>Santolan<br />Anapolis</span>
+            </div>
+            <div
+              class="station-node"
+              data-station="Ortigas"
+              onclick="selectNodeStation('Ortigas')"
+            >
+              <div class="circle">6</div>
+              <span>Ortigas</span>
+            </div>
+            <div
+              class="station-node"
+              data-station="Shaw Boulevard"
+              onclick="selectNodeStation('Shaw Boulevard')"
+            >
+              <div class="circle">7</div>
+              <span>Shaw<br />Blvd</span>
+            </div>
+            <div
+              class="station-node"
+              data-station="Boni"
+              onclick="selectNodeStation('Boni')"
+            >
+              <div class="circle">8</div>
+              <span>Boni</span>
+            </div>
+            <div
+              class="station-node"
+              data-station="Guadalupe"
+              onclick="selectNodeStation('Guadalupe')"
+            >
+              <div class="circle">9</div>
+              <span>Guadalupe</span>
+            </div>
+            <div
+              class="station-node"
+              data-station="Buendia"
+              onclick="selectNodeStation('Buendia')"
+            >
+              <div class="circle">10</div>
+              <span>Buendia</span>
+            </div>
+            <div
+              class="station-node"
+              data-station="Ayala"
+              onclick="selectNodeStation('Ayala')"
+            >
+              <div class="circle">11</div>
+              <span>Ayala</span>
+            </div>
+            <div
+              class="station-node"
+              data-station="Magallanes"
+              onclick="selectNodeStation('Magallanes')"
+            >
+              <div class="circle">12</div>
+              <span>Magallanes</span>
+            </div>
+            <div
+              class="station-node"
+              data-station="Taft Avenue"
+              onclick="selectNodeStation('Taft Avenue')"
+            >
+              <div class="circle">13</div>
+              <span>Taft<br />Avenue</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIMETABLE & OFFICIAL OPERATIONAL SCHEDULE SECTION -->
+      <section id="schedules" class="card" style="padding: 28px">
+        <!-- Operating Schedule Overview Banner -->
+        <div
+          style="
+            background: rgba(11, 14, 23, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 14px;
+              flex-wrap: wrap;
+              gap: 10px;
+            "
+          >
+            <h3
+              style="
+                font-size: 1.1rem;
+                font-weight: 800;
+                color: var(--accent-gold);
+                margin: 0;
+              "
+            >
+              DOTr MRT-3 Official Operating Hours
+            </h3>
+            <span
+              style="
+                font-size: 0.75rem;
+                font-weight: 700;
+                background: rgba(245, 158, 11, 0.15);
+                color: var(--accent-gold);
+                padding: 4px 10px;
+                border-radius: 99px;
+                border: 1px solid var(--accent-gold);
+              "
+              >13 Stations • 16.9 km</span
+            >
+          </div>
+          <div style="overflow-x: auto">
+            <table
+              style="
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 0.85rem;
+                text-align: left;
+              "
+            >
+              <thead>
+                <tr
+                  style="
+                    border-bottom: 1px solid var(--border);
+                    color: var(--text-muted);
+                    font-size: 0.7rem;
+                    text-transform: uppercase;
+                  "
+                >
+                  <th style="padding: 8px 12px">Operating Days</th>
+                  <th style="padding: 8px 12px">First Train (North / Taft)</th>
+                  <th style="padding: 8px 12px">Last Train (North Ave)</th>
+                  <th style="padding: 8px 12px">Last Train (Taft Ave)</th>
+                  <th style="padding: 8px 12px; text-align: right">
+                    Peak Headway
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05)">
+                  <td style="padding: 10px 12px">
+                    <strong>Weekdays (Mon – Fri)</strong>
+                  </td>
+                  <td
+                    style="
+                      padding: 10px 12px;
+                      color: var(--accent-green);
+                      font-weight: 700;
+                    "
+                  >
+                    4:30 AM
+                  </td>
+                  <td style="padding: 10px 12px">10:30 PM</td>
+                  <td style="padding: 10px 12px">11:10 PM</td>
+                  <td
+                    style="
+                      padding: 10px 12px;
+                      text-align: right;
+                      color: var(--accent-gold);
+                      font-weight: 700;
+                    "
+                  >
+                    3.5 – 4.0 mins
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 12px">
+                    <strong>Weekends & Holidays</strong>
+                  </td>
+                  <td
+                    style="
+                      padding: 10px 12px;
+                      color: var(--accent-green);
+                      font-weight: 700;
+                    "
+                  >
+                    4:30 AM
+                  </td>
+                  <td style="padding: 10px 12px">9:30 PM</td>
+                  <td style="padding: 10px 12px">10:10 PM</td>
+                  <td
+                    style="
+                      padding: 10px 12px;
+                      text-align: right;
+                      color: var(--accent-gold);
+                      font-weight: 700;
+                    "
+                  >
+                    5.0 – 7.0 mins
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 16px;
+          "
+        >
+          <div>
+            <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 4px">
+              Live Real-Time Timetable
+            </h2>
+            <p
+              class="subtitle"
+              style="
+                margin-bottom: 0;
+                font-size: 0.85rem;
+                color: var(--text-muted);
+              "
+            >
+              Dynamic train departure schedules dynamically calculated from live
+              clock & operational headways.
+            </p>
+          </div>
+
+          <div style="min-width: 240px">
+            <select
+              id="scheduleStationFilter"
+              style="
+                padding: 12px 16px;
+                border-radius: 12px;
+                font-size: 0.85rem;
+                background: rgba(11, 14, 23, 0.8);
+                color: var(--text-primary);
+                border: 1px solid var(--border);
+                width: 100%;
+                outline: none;
+              "
+            >
+              <option value="ALL">All Stations (North Ave &rarr; Taft)</option>
+              <option value="North Avenue">North Avenue</option>
+              <option value="Quezon Avenue">Quezon Avenue</option>
+              <option value="GMA-Kamuning">GMA-Kamuning</option>
+              <option value="Araneta Center-Cubao">Araneta Center-Cubao</option>
+              <option value="Santolan-Anapolis">Santolan-Anapolis</option>
+              <option value="Ortigas">Ortigas</option>
+              <option value="Shaw Boulevard">Shaw Boulevard</option>
+              <option value="Boni">Boni</option>
+              <option value="Guadalupe">Guadalupe</option>
+              <option value="Buendia">Buendia</option>
+              <option value="Ayala">Ayala</option>
+              <option value="Magallanes">Magallanes</option>
+              <option value="Taft Avenue">Taft Avenue</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto">
+          <table
+            style="
+              width: 100%;
+              border-collapse: collapse;
+              font-size: 0.9rem;
+              text-align: left;
+            "
+          >
+            <thead>
+              <tr
+                style="
+                  border-bottom: 1px solid var(--border);
+                  color: var(--text-muted);
+                  font-size: 0.75rem;
+                  text-transform: uppercase;
+                  letter-spacing: 0.05em;
+                "
+              >
+                <th style="padding: 14px 16px">Departure Station</th>
+                <th style="padding: 14px 16px">Destination</th>
+                <th style="padding: 14px 16px">Train ID</th>
+                <th style="padding: 14px 16px">Departure Time</th>
+                <th style="padding: 14px 16px">Platform</th>
+                <th style="padding: 14px 16px">Status</th>
+                <th style="padding: 14px 16px">Fare</th>
+                <th style="padding: 14px 16px; text-align: right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="scheduleTableBody">
+              <!-- Populated by timetable.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer class="portal-footer" aria-label="MRT-3 Express footer"><span>© 2026 MRT-3 EXPRESS · UI PROTOTYPE</span><a href="stations.html">13 STATIONS · NORTH TO SOUTH</a><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">BACK TO TOP ↑</a></footer>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
+
+
+
+

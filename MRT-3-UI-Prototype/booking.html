@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0b0e17">
+  <title>Fares &amp; Ticketing - MRT-3 Express</title><link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body id="top">
+  <header class="header site-header">
+    <a class="logo" href="index.html">MRT-3 Express</a><div class="nav-container"><nav class="main-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="stations.html">View MRT Stations</a><a href="map.html">Line Map</a><a class="active" aria-current="page" href="booking.html">Fares &amp; Ticketing</a><a href="account.html">Account Details</a></nav><button id="signOutButton" class="header-signout" type="button" hidden><span>Sign out</span></button><div class="system-status"><i aria-hidden="true"></i><span id="liveClock">UI DEMO · MRT-3</span></div></div>
+  </header>
+  <main class="booking-page rapid-ticket-page">
+    <header class="page-heading"><span class="station-eyebrow">MRT-3 · DIGITAL TICKETING</span><h1>Fares &amp; <span>Ticketing</span></h1><p>Calculate the fare for your trip and issue a digital MRT-3 pass.</p></header>
+    <section class="schedule-banner"><div><strong>DOTr MRT-3 Daily Operating Hours</strong><span>Service begins at 04:30 AM. Last trips vary by direction and operating day.</span></div><a class="map-explore-link" href="map.html">Explore the line map <span aria-hidden="true">→</span></a></section>
+    <div class="rapid-ticket-grid">
+      <section class="card rapid-form-card">
+        <div class="ticket-mode-switch journey-choice" role="group" aria-label="Choose ticket or pass type"><button type="button" class="ticket-mode is-active" data-mode="book" aria-pressed="true">Book Single Ticket Journey</button><button type="button" class="ticket-mode" data-mode="reserve" aria-pressed="false">Reserve Single Ticket Journey</button><button type="button" class="ticket-mode" data-mode="beep" aria-pressed="false">Order Beep Pass</button></div>
+        <div id="counterPaymentNote" class="journey-payment-note"><strong>No online payment required.</strong><span>Pay over-the-counter at the station when you present your QR reference.</span></div>
+        <div id="onlinePaymentFields" class="online-payment-fields" hidden>
+          <div class="wallet-strip"><span>DEMO WALLET BALANCE</span><strong id="walletBalance">Sign in to view</strong><a href="account.html">Account details</a></div>
+          <div class="input-group"><label for="paymentMethod">PAYMENT METHOD</label><select id="paymentMethod"><option value="DEMO_WALLET">Demo Wallet Balance</option><option value="GCASH">GCash (demo)</option></select><small id="paymentMethodNote">Funds will be deducted from your demo wallet balance.</small></div>
+        </div>
+        <div id="beepPassFields" class="beep-pass-fields" hidden>
+          <div class="input-group"><label for="pickupStation">PREFERRED PICKUP STATION</label><select id="pickupStation" required></select></div>
+          <div class="beep-pass-details"><div class="input-group"><label for="pickupDate">PICKUP DATE</label><input id="pickupDate" type="date" required><small>Choose today or a future pickup date.</small></div><div class="input-group"><label for="cardValue">INITIAL CARD VALUE</label><select id="cardValue" required><option value="100">₱100.00</option><option value="200">₱200.00</option><option value="500">₱500.00</option></select><small>Amount loaded onto the demo pass.</small></div></div>
+          <fieldset class="fare-categories beep-payment-choice"><legend>PAYMENT OPTION</legend><label class="fare-option"><input type="radio" name="beepPaymentChoice" value="COUNTER" checked><span><b>Pay at Station Counter</b><small>Pay cash when you collect your pass.</small></span></label><label class="fare-option"><input type="radio" name="beepPaymentChoice" value="ONLINE"><span><b>Pay Online</b><small>Choose Demo Wallet or simulated GCash.</small></span></label></fieldset>
+          <div id="beepCounterNote" class="journey-payment-note"><strong>Payment due at pickup.</strong><span>Present your pass QR at your selected MRT-3 station counter.</span></div>
+        </div>
+        <form id="ticketPurchaseForm" novalidate>
+          <div id="journeyFields">
+            <div class="rapid-route-fields">
+              <div class="input-group"><label for="origin">ORIGIN STATION</label><select id="origin" required></select></div>
+              <button class="route-swap" id="swapStations" type="button" aria-label="Swap origin and destination">⇅</button>
+              <div class="input-group"><label for="destination">DESTINATION STATION</label><select id="destination" required></select></div>
+            </div>
+            <div class="rapid-details-fields"><div class="input-group"><label for="travelDate">VALID FOR</label><input id="travelDate" type="date" required></div><div class="input-group"><label for="quantity">NUMBER OF TICKETS</label><input id="quantity" type="number" min="1" max="10" value="1" required></div></div>
+            <fieldset class="fare-categories"><legend>FARE CATEGORY</legend>
+              <label class="fare-option"><input type="radio" name="fareType" value="Regular" checked><span><b>Regular fare</b><small>Standard single-journey fare</small></span><strong id="regularFare">₱—</strong></label>
+              <label class="fare-option" id="discountedFareRow"><input type="radio" name="fareType" value="Concessionary" disabled><span><b>50% concessionary fare</b><small id="discountEligibility">Available to verified Student, Senior Citizen, or PWD accounts</small></span><strong id="discountedFare">₱—</strong></label>
+            </fieldset>
+          </div>
+          <p id="purchaseMessage" class="validation-message" role="status" aria-live="polite"></p>
+          <button id="purchaseButton" class="btn-primary ticket-purchase-primary" type="submit">Generate Booking Voucher</button>
+          <p class="demo-note">Frontend demo only. GCash selection does not process a real transaction.</p>
+        </form>
+      </section>
+      <aside class="card fare-summary-card"><span class="station-eyebrow">FARE SUMMARY</span><h2 id="summaryTitle">Your journey</h2><div class="fare-summary-route" id="summaryRoute">Choose origin and destination stations</div>
+        <dl class="fare-summary-list"><div><dt>Fare type</dt><dd id="summaryFareType">Regular</dd></div><div><dt id="summaryUnitLabel">Single fare</dt><dd id="summaryUnitFare">₱—</dd></div><div><dt id="summaryQuantityLabel">Quantity</dt><dd id="summaryQuantity">1</dd></div><div><dt>Payment</dt><dd id="summaryPayment">Pay at station counter</dd></div></dl><div class="fare-summary-total"><span>Total due</span><strong id="summaryTotal">₱—</strong></div>
+        <section id="issuedPass" class="issued-pass" hidden aria-live="polite"><span id="issuedPassStatus" class="ticket-status-value ticket-status-booked">UNPAID / BOOKED</span><h3 id="issuedPassTitle">Booking voucher ready</h3><div id="purchaseQr" class="ticket-qr-code" role="img" aria-label="Ticket QR code"></div><p id="passDetails"></p><code id="passReference"></code><p id="passInstructions" class="pass-instructions"></p><div class="ticket-card-actions"><button id="viewPurchasedTicket" class="ticket-action ticket-action-primary" type="button">View pass</button><button id="downloadPurchasedTicket" class="ticket-action" type="button">Download PNG pass</button></div><small>Demo pass only; not valid for travel.</small></section>
+      </aside>
+    </div>
+    <section class="dashboard-panel history-panel booking-ticket-panel" aria-labelledby="bookingTicketsTitle">
+      <div class="panel-heading"><div><span class="dashboard-eyebrow">DIGITAL TICKETS</span><h2 id="bookingTicketsTitle">Active bookings / My tickets</h2></div><button id="bookingRefreshTickets" class="dashboard-refresh" type="button"><span aria-hidden="true">↻</span> Refresh</button></div>
+      <p id="bookingTicketsMessage" class="history-message" aria-live="polite"></p>
+      <div id="bookingTickets" class="reservation-history" role="list" aria-live="polite"><p class="history-empty">Sign in to view and manage your digital tickets.</p></div>
+    </section>
+  </main>
+  <div id="bookingTicketDialog" class="ticket-dialog-backdrop" hidden>
+    <section class="ticket-dialog" role="dialog" aria-modal="true" aria-labelledby="bookingTicketDialogTitle">
+      <button id="bookingTicketDialogClose" class="dialog-close" type="button" aria-label="Close ticket details">×</button>
+      <span class="dashboard-eyebrow">DIGITAL PASS</span><h2 id="bookingTicketDialogTitle">MRT-3 Digital Pass Summary</h2><code id="bookingTicketReference" class="ticket-modal-reference"></code>
+      <div class="ticket-dialog-layout"><div id="bookingTicketQr" class="ticket-qr-code" role="img" aria-label="Ticket QR code"></div><p class="ticket-qr-copy">QR payload <code id="bookingTicketPayload"></code></p></div>
+      <dl class="ticket-modal-details"><div><dt id="bookingTicketRouteLabel">Route</dt><dd id="bookingTicketRoute"></dd></div><div><dt>Fare category / pass type</dt><dd id="bookingTicketType"></dd></div><div><dt>Pass count</dt><dd id="bookingTicketQuantity"></dd></div><div><dt id="bookingTicketDateLabel">Valid date</dt><dd id="bookingTicketDate"></dd></div><div><dt>Price / value</dt><dd id="bookingTicketPrice"></dd></div><div><dt>Status</dt><dd id="bookingTicketStatus" class="ticket-status-value"></dd></div><div><dt>Payment</dt><dd id="bookingTicketPayment"></dd></div><div><dt>Booked</dt><dd id="bookingTicketTimestamp"></dd></div></dl>
+      <p id="bookingTicketInstructions" class="pass-instructions"></p>
+      <p class="ticket-demo-note">Demo QR code for this prototype. Not valid for travel.</p><div class="ticket-dialog-actions"><button id="bookingTicketDownload" class="ticket-action ticket-action-primary" type="button">Download PNG pass</button><button id="bookingTicketCancel" class="ticket-action ticket-action-danger" type="button">Cancel booking</button><button id="bookingTicketFooterClose" class="ticket-action" type="button">Close</button></div>
+    </section>
+  </div>
+  <div id="bookingCancelDialog" class="ticket-dialog-backdrop" hidden><section class="ticket-dialog ticket-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="bookingCancelTitle" aria-describedby="bookingCancelCopy"><button id="bookingCancelClose" class="dialog-close" type="button" aria-label="Close cancellation confirmation">×</button><span class="dashboard-eyebrow">CANCEL BOOKING</span><h2 id="bookingCancelTitle">Cancel this ticket?</h2><p id="bookingCancelCopy">Are you sure you want to cancel this booking?</p><div class="ticket-dialog-actions"><button id="bookingCancelKeep" class="ticket-action" type="button">Keep booking</button><button id="bookingCancelConfirm" class="ticket-action ticket-action-primary" type="button">Confirm cancellation</button></div></section></div>
+  <div id="bookingToast" class="account-toast" role="status" aria-live="polite" hidden></div>
+  <footer class="portal-footer" aria-label="MRT-3 Express footer"><span>© 2026 MRT-3 EXPRESS · UI PROTOTYPE</span><a href="stations.html">13 STATIONS · NORTH TO SOUTH</a><a href="#top">BACK TO TOP ↑</a></footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="assets/js/ticket-modal.js"></script><script src="assets/js/app.js"></script><script src="assets/js/ticketing.js"></script>
+</body>
+</html>
